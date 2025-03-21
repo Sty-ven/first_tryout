@@ -30,7 +30,9 @@ class TestCritical(unittest.TestCase):
         mock_engine = MagicMock()
         mock_create_engine.return_value = mock_engine
 
-        # Call the module's global code
+        # Import the module after setting up mocks
+        # This will execute the code in critical.py
+        import critical
 
         # Check that wget was called 13 times (once for initial download and then for each month)
         self.assertEqual(mock_wget.call_count, 13)
@@ -42,8 +44,6 @@ class TestCritical(unittest.TestCase):
         mock_create_engine.assert_called_once_with(
             "postgresql://admin:admin@sample_postgres/silent"
         )
-
-        # Since critical.py executes when imported, we don't need to call any functions
 
 
 if __name__ == "__main__":
