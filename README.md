@@ -96,7 +96,53 @@ poetry run pytest
 ## 📊 Architecture
 
 <div align="center">
-<img src="https://i.imgur.com/b1HHPcE.png" alt="Architecture Diagram" width="700px" />
+
+```mermaid
+flowchart TB
+    subgraph "Data Sources"
+        A[NYC TLC Trip Data] -->|HTTP Download| B[Parquet Files]
+    end
+    
+    subgraph "Processing Layer"
+        B -->|wget| C[Data Acquisition]
+        C -->|PyArrow| D[Data Loading]
+        D -->|Pandas| E[Data Transformation]
+    end
+    
+    subgraph "Storage Layer"
+        E -->|SQLAlchemy| F[PostgreSQL Database]
+    end
+    
+    subgraph "Container Infrastructure"
+        G[Docker Container] -.->|Runs| C
+        G -.->|Runs| D
+        G -.->|Runs| E
+        H[Docker Compose] -.->|Orchestrates| G
+        H -.->|Orchestrates| I[PostgreSQL Container]
+        H -.->|Orchestrates| J[pgAdmin Container]
+        F -.->|Hosted in| I
+    end
+    
+    subgraph "CI/CD Pipeline"
+        K[GitHub Actions] -->|Lint| L[Flake8/Black]
+        K -->|Test| M[PyTest]
+        K -->|Build| N[Docker Image]
+        K -->|Deploy| O[Production]
+    end
+    
+    classDef sourceClass fill:#f9f,stroke:#333,stroke-width:2px
+    classDef processClass fill:#bbf,stroke:#333,stroke-width:2px
+    classDef storageClass fill:#bfb,stroke:#333,stroke-width:2px
+    classDef infraClass fill:#fbb,stroke:#333,stroke-width:2px
+    classDef cicdClass fill:#ffb,stroke:#333,stroke-width:2px
+    
+    class A,B sourceClass
+    class C,D,E processClass
+    class F storageClass
+    class G,H,I,J infraClass
+    class K,L,M,N,O cicdClass
+```
+
 </div>
 
 ## 🏗️ Project Structure
