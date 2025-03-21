@@ -28,6 +28,10 @@ jobs:
         run: |
           poetry install
           
+      - name: Format with black
+        run: |
+          poetry run black --check .
+          
       - name: Lint with flake8
         run: |
           # Don't check the virtual environment files
