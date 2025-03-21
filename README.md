@@ -1,82 +1,150 @@
-# NYC Taxi Data Pipeline
+# 🚕 NYC Taxi Data Pipeline
 
-[![NYC Taxi Data Pipeline CI/CD](https://github.com/yourusername/first_tryout/actions/workflows/main.yml/badge.svg)](https://github.com/yourusername/first_tryout/actions/workflows/main.yml)
+<div align="center">
 
-A data pipeline that downloads NYC taxi trip data, processes it with Pandas and PyArrow, and loads it into a PostgreSQL database.
+![NYC Taxi](https://i.imgur.com/kNOy8pa.png)
 
-## Features
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/yourusername/first_tryout/main.yml?style=for-the-badge&logo=github&label=CI%2FCD)](https://github.com/yourusername/first_tryout/actions)
+[![Python](https://img.shields.io/badge/python-3.10-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Poetry](https://img.shields.io/badge/Poetry-1.7.1-teal.svg?style=for-the-badge&logo=poetry&logoColor=white)](https://python-poetry.org/)
+[![Docker](https://img.shields.io/badge/Docker-20.10.21-blue.svg?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=for-the-badge)](https://github.com/psf/black)
 
-- Downloads NYC taxi trip data parquet files
-- Processes data with Pandas and PyArrow
-- Loads data into PostgreSQL database
-- Containerized with Docker and Docker Compose
-- CI/CD pipeline with GitHub Actions
+*A modern data pipeline that processes NYC taxi trip data, providing valuable insights through seamless ETL operations*
+
+</div>
+
+## ✨ Features
+
+<div align="center">
+<table>
+<tr>
+<td width="50%">
+📊 **Data Acquisition**
+- Automatic download of NYC taxi trip data
+- Processes parquet files efficiently
+- Robust error handling
+- Progress tracking
+
+</td>
+<td width="50%">
+
+🔄 **Data Processing**
+- PyArrow for high-performance processing
+- Pandas for data manipulation
+- Flexible data transformations
+- Memory-efficient operations
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+💾 **Data Storage**
+- PostgreSQL database integration
+- Optimized data loading
+- Atomic transactions
+- Data versioning support
+
+</td>
+<td width="50%">
+
+🔧 **Development**
 - Poetry for dependency management
+- Pre-commit hooks for code quality
+- CI/CD pipeline with GitHub Actions
+- Docker-based deployment
 
-## Project Structure
+</td>
+</tr>
+</table>
+</div>
 
-```
-├── .github/
-│   └── workflows/
-│       └── main.yml       # GitHub Actions workflow file
-├── tests/
-│   └── test_critical.py   # Unit tests
-├── Dockerfile             # Docker image definition
-├── .dockerignore          # Docker ignore file
-├── pyproject.toml         # Poetry configuration
-├── poetry.lock            # Poetry lock file
-├── critical.py            # Main data processing script
-├── docker-compose.yaml    # Container orchestration
-└── README.md              # Project documentation
-```
-
-## Getting Started
+## 🚀 Quick Start
 
 ### Prerequisites
 
 - Docker and Docker Compose
 - Python 3.10+
 - Poetry (for development)
-- Git
 
-### Development Setup
-
-1. Clone the repository
-2. Install dependencies with Poetry:
+### Run with Docker
 
 ```bash
-poetry install
-```
+# Clone the repository
+git clone https://github.com/Sty-ven/first_tryout.git
+cd first_tryout
 
-3. Run tests:
-
-```bash
-poetry run pytest
-```
-
-### Running Locally
-
-Run the application with Docker Compose:
-
-```bash
+# Start the pipeline
 docker-compose up
 ```
 
-### CI/CD Pipeline
+### Development Setup
 
-The project includes a CI/CD pipeline that:
+```bash
+# Install dependencies
+poetry install
 
-1. Lints and tests the code with Poetry
-2. Builds and pushes the Docker image (on main branch)
-3. Deploys to production (placeholder for actual deployment)
+# Setup pre-commit hooks
+poetry run pre-commit install
 
-## Environment Variables
+# Run tests
+poetry run pytest
+```
 
-To use this project with the CI/CD pipeline, you need to set up the following GitHub secrets:
+## 📊 Architecture
 
-- `DOCKER_HUB_USERNAME`: Your Docker Hub username
-- `DOCKER_HUB_TOKEN`: Your Docker Hub access token
+<div align="center">
+<img src="https://i.imgur.com/b1HHPcE.png" alt="Architecture Diagram" width="700px" />
+</div>
 
-## License
+## 🏗️ Project Structure
 
-This project is licensed under the MIT License - see the LICENSE file for details
+```
+├── .github/workflows  # CI/CD pipeline configuration
+├── tests/             # Test suite
+├── Dockerfile         # Container definition
+├── critical.py        # Main data pipeline script
+├── docker-compose.yml # Container orchestration
+├── pyproject.toml     # Poetry configuration
+└── README.md          # This documentation
+```
+
+## 🧪 Testing
+
+```bash
+# Run tests
+poetry run pytest
+
+# Format code
+poetry run black .
+
+# Lint code
+poetry run flake8
+```
+
+## 🔄 CI/CD Pipeline
+
+This project uses GitHub Actions for continuous integration and deployment:
+
+1. **Lint & Test**: Validates code quality and functionality
+2. **Build**: Packages the application into a Docker image
+3. **Deploy**: Pushes to container registry and deploys to production
+
+## 📜 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🙏 Acknowledgements
+
+- [NYC TLC](https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page) for providing the data
+- [PyArrow](https://arrow.apache.org/docs/python/) for efficient data processing
+- [Pandas](https://pandas.pydata.org/) for data manipulation tools
+- [PostgreSQL](https://www.postgresql.org/) for reliable data storage
+
+---
+
+<div align="center">
+<p>Made with ❤️ by <a href="https://github.com/yourusername">Your Name</a></p>
+</div>
