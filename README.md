@@ -11,6 +11,7 @@ A data pipeline that downloads NYC taxi trip data, processes it with Pandas and 
 - Loads data into PostgreSQL database
 - Containerized with Docker and Docker Compose
 - CI/CD pipeline with GitHub Actions
+- Poetry for dependency management
 
 ## Project Structure
 
@@ -21,9 +22,11 @@ A data pipeline that downloads NYC taxi trip data, processes it with Pandas and 
 ├── tests/
 │   └── test_critical.py   # Unit tests
 ├── Dockerfile             # Docker image definition
+├── .dockerignore          # Docker ignore file
+├── pyproject.toml         # Poetry configuration
+├── poetry.lock            # Poetry lock file
 ├── critical.py            # Main data processing script
 ├── docker-compose.yaml    # Container orchestration
-├── requirements.txt       # Python dependencies
 └── README.md              # Project documentation
 ```
 
@@ -32,12 +35,28 @@ A data pipeline that downloads NYC taxi trip data, processes it with Pandas and 
 ### Prerequisites
 
 - Docker and Docker Compose
+- Python 3.10+
+- Poetry (for development)
 - Git
+
+### Development Setup
+
+1. Clone the repository
+2. Install dependencies with Poetry:
+
+```bash
+poetry install
+```
+
+3. Run tests:
+
+```bash
+poetry run pytest
+```
 
 ### Running Locally
 
-1. Clone the repository
-2. Run the application with Docker Compose:
+Run the application with Docker Compose:
 
 ```bash
 docker-compose up
@@ -47,7 +66,7 @@ docker-compose up
 
 The project includes a CI/CD pipeline that:
 
-1. Lints and tests the code
+1. Lints and tests the code with Poetry
 2. Builds and pushes the Docker image (on main branch)
 3. Deploys to production (placeholder for actual deployment)
 
@@ -60,4 +79,4 @@ To use this project with the CI/CD pipeline, you need to set up the following Gi
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the LICENSE file for details
