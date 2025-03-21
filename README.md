@@ -4,7 +4,7 @@
 
 ![NYC Taxi](https://i.imgur.com/kNOy8pa.png)
 
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/yourusername/first_tryout/main.yml?style=for-the-badge&logo=github&label=CI%2FCD)](https://github.com/yourusername/first_tryout/actions)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Sty-ven/first_tryout/main.yml?style=for-the-badge&logo=github&label=CI%2FCD)](https://github.com/Sty-ven/first_tryout/actions)
 [![Python](https://img.shields.io/badge/python-3.10-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Poetry](https://img.shields.io/badge/Poetry-1.7.1-teal.svg?style=for-the-badge&logo=poetry&logoColor=white)](https://python-poetry.org/)
 [![Docker](https://img.shields.io/badge/Docker-20.10.21-blue.svg?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
@@ -192,5 +192,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ---
 
 <div align="center">
-<p>Made with ❤️ by <a href="https://github.com/yourusername">Your Name</a></p>
+<p>Made with ❤️ by <a href="https://github.com/Sty-ven">Your Name</a></p>
 </div>
