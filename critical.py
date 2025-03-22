@@ -2,22 +2,29 @@ import wget
 import pyarrow.parquet as pq
 import pandas as pd
 from sqlalchemy import create_engine
+import os
 
-url = "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2024-01.parquet"
-taxi = wget.download(url)
+taxi_data = r'C:\Users\oluwa\Documents\Hemie\Project\Docker\TLCTripRecordData\taxi_data'
+os.makedirs(taxi_data, exist_ok=True)
 
+con = create_engine('postgresql://admin:admin@NewYorkTaxiData:5433/taxi_data')
+
+chunk_size = 150000
 empty_df = []
+
 for month in range(1, 13):
-    url = "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2024-{:02d}.parquet".format(
-        month
-    )
-    table = wget.download(url)  # downloads the parquet file
-    df = pq.read_table(table)  # this reads the parquet file
-    df = df.to_pandas()  # converts pyarrow table to pandas dataframe
+    url = 'https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2024-{:02d}.parquet'.format(month)
+    file_path = os.path.join(taxi_data, f'yellow_tripdata_2024-{month:02d}.parquet')
+
+    if not os.path.exists(file_path):
+        wget.download(url, file_path)
+    table = pq.read_table(file_path)
+    df = table.to_pandas()
     empty_df.append(df)
-final_df = pd.concat(empty_df)
-subset_df = final_df.iloc[:10000, :]
+    final_df = pd.concat(empty_df, ignore_index=True)
 
-con = create_engine("postgresql://admin:admin@sample_postgres/silent")
+    for i in range(0, len(final_df), chunk_size):
+        chunk = final_df.iloc[i:i + chunk_size]
+        chunk.to_sql('yellow_tripdata', con=con, if_exists='append', index=False)
+        print(f'Uploaded chunk {i // chunk_size + 1} of {file_path}')
 
-subset_df.to_sql("trip-data", con, if_exists="replace")
