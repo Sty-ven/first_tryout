@@ -1,21 +1,36 @@
-FROM python:3.10-slim
+FROM apache/airflow:2.10.0
 
-WORKDIR /app
+USER root
+
+# Install system dependencies
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+         vim \
+         build-essential \
+  && apt-get autoremove -yqq --purge \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
+# Set up Python environment
+COPY pyproject.toml poetry.lock /opt/airflow/
+WORKDIR /opt/airflow
+
+USER airflow
 
 # Install Poetry
-RUN pip install poetry==1.7.1
+RUN pip install --no-cache-dir poetry
 
-# Copy poetry configuration files
-COPY pyproject.toml poetry.lock* /app/
+# Install project dependencies
+RUN poetry config virtualenvs.create false \
+    && poetry install --only main --no-root --no-ansi
 
-# Configure poetry to not use a virtual environment
-RUN poetry config virtualenvs.create false
+# Copy DAGs and other necessary files
+COPY dags/ /opt/airflow/dags/
+COPY plugins/ /opt/airflow/plugins/
+COPY config/ /opt/airflow/config/
 
-# Install dependencies
-RUN poetry install --no-dev --no-interaction --no-ansi
+# Return to airflow user for security
+USER airflow
 
-# Copy application code
-COPY . /app/
-
-# Run the application
-ENTRYPOINT ["python", "critical.py"]
+# Update Airflow configuration if needed
+# ENV AIRFLOW__CORE__LOAD_EXAMPLES=False
