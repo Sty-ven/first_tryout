@@ -2,7 +2,7 @@ FROM python:3.10-slim
 
 WORKDIR /app
 
-RUN pip install wget pandas pyarrow sqlalchemy
+RUN pip install wget pandas pyarrow sqlalchemy psycopg2-binary
 
 ## Install Poetry
 #RUN pip install poetry==1.7.1
