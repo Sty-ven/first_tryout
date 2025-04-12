@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 
 
 empty_df = []
-for month in range(1, 2):
+for month in range(1, 13):
     url = "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2024-{:02d}.parquet".format(
         month
     )
@@ -16,11 +16,11 @@ for month in range(1, 2):
     empty_df.append(_dff)
 
 final_df = pd.concat(empty_df)
-subset_df = final_df.iloc[:10000, :]
+# subset_df = final_df.iloc[:100000, :]
 
 
 con = create_engine("postgresql://admin:admin@sample_postgres/silent")
 
 con.connect()
 
-subset_df.to_sql("trip-data", con=con, if_exists="replace")
+final_df.to_sql("trip_data", con=con, if_exists="replace", chunksize=1000)
