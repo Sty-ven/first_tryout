@@ -1,0 +1,31 @@
+services:
+  TaxiData:
+    image: postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: trips
+
+    ports:
+      - "5433:5432"
+    networks:
+      - critical
+
+  pgadmin_hemie:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8060:80"
+    networks:
+      - critical
+  critical-taxi:
+    build:
+      context: .
+    networks:
+      - critical
+
+networks:
+  critical:
+    driver: bridge
