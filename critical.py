@@ -1,3 +1,5 @@
+from datetime import time
+
 import wget
 import pyarrow.parquet as pq
 import pandas as pd
@@ -16,11 +18,19 @@ for month in range(1, 13):
     empty_df.append(_dff)
 
 final_df = pd.concat(empty_df)
-# subset_df = final_df.iloc[:100000, :]
+print(final_df.head())
+final_df.to_csv("taxi.csv", index=False) #put data into a csv file
 
+#read csv ile
+df_iter=pd.read_csv("taxi.csv", chunksize=100000)
 
-con = create_engine("postgresql://admin:admin@sample_postgres/silent")
+while True:
 
-con.connect()
-
-final_df.to_sql("trip_data", con=con, if_exists="replace", chunksize=1000)
+    con = create_engine("postgresql://admin:admin@sample_postgres/silent")
+    con.connect()
+    df=next(df_iter)
+    start_time = time()
+    df.to_sql("trip_data", con=con, if_exists="append")
+    end_time = time()
+    elapsed_time=start_time-end_time
+    print(f"100000 rows was print as in{elapsed_time} seconds")
