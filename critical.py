@@ -1,4 +1,4 @@
-from datetime import time
+from time import time
 
 import wget
 import pyarrow.parquet as pq
@@ -18,7 +18,7 @@ for month in range(1, 13):
     empty_df.append(_dff)
 
 final_df = pd.concat(empty_df)
-print(final_df.head())
+# print(final_df.head())
 final_df.to_csv("taxi.csv", index=False) #put data into a csv file
 
 #read csv ile
