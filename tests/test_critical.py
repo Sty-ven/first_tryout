@@ -32,7 +32,6 @@ class TestCritical(unittest.TestCase):
 
         # Import the module after setting up mocks
         # This will execute the code in critical.py
-        import critical
 
         # Check that wget was called 13 times (once for initial download and then for each month)
         self.assertEqual(mock_wget.call_count, 13)

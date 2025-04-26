@@ -1,0 +1,5 @@
+pandas
+wget
+sqlalchemy
+pyarrow
+psycopg2-binary
