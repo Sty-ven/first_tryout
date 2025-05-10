@@ -1,4 +1,4 @@
-FROM apache/airflow:2.10.0
+FROM apache/airflow:2.10.5
 
 #use root to install package
 USER root
@@ -19,7 +19,7 @@ COPY requirements.txt .
 USER airflow
 
 #install python dependencies using pip since that's what you're using
-RUN pip --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 #Copy DAGs and other necesary files
 COPY dags/ /opt/airflow/dags
